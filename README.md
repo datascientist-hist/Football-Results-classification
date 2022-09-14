@@ -47,7 +47,7 @@ In this part of the analysis i will execute the following steps:
 >
 >0 -> Under 2.5
 
->Then i am going to take a look to some variables in order to have a general overview, after i will compute the accuracy according to the odds of the bet365 website in order to have a metric to compare
+>Then i am going to take a look to the variables in order to have a general overview, after i will compute the accuracy according to the odds of the bet365 website in order to have a metric to compare
 
 >At this point i will perform feature engineering,i should compute the average stats of the last 5(or another number) matches for each team,and the the average stats of the total previous matches for each team
 
@@ -67,5 +67,23 @@ for i in (range(len(dft))):
   else:predB365.append(0)
 
 ```
-
 ![](https://github.com/datascientist-hist/Football-Results-classification/blob/main/images/count_targettrain.png)
+
+Looking at the frequencies of the target variable we can state that during the championship related to year 2021/2022 we would have a 56% empirical probability of guessing the Over 2.5 outcome by choosing at random
+
+Instead using the odds offered by bookmaker B365 to choose the event Over 2.5 If we had played according to the odds we would have guessed the 58% of the bets
+
+To be competitive i should do better than those metrics
+
+![](https://github.com/datascientist-hist/Football-Results-classification/blob/main/images/confusionmatrixb365%20total.png)
+```
+#Precision score over 2.5 and under 2.5
+precision_positive = metrics.precision_score(target, predB365, pos_label=1)
+precision_negative = metrics.precision_score(target, predB365, pos_label=0)
+print(f"Precision score over2.5:  {precision_positive}\nPrecision score under2.5:  {precision_negative}\nAccuracy:  {accuracy}")
+
+Precision score over2.5:  0.5860
+Precision score under2.5:  0.5512
+Accuracy:  0.5789
+
+```
