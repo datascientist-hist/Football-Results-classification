@@ -6,17 +6,18 @@
 
 *Championship used Serie A Year 2021/2022*
 
-The aim of this project is to try to classify if a game is going to end with a number of goal greater than 2.5,we have the odds of the bookmaker BET365 that can be converted into probabilities and we can use those odds as referencee point ,but our purpose would be beating those odds.
+The aim of this project is to try to classify if a game is going to end with a number of goal greater than 2, to carry out this task i will download a dataset where are present a lot of features as number of goal,team names and stats related to matches, are also present  the odds provided by bookmaker BET365 that can be converted into probabilities and can be used  as referencee point ,but my purpose would be beating those odds.
 
 The strategy that i want to adopt is based on goals scored and goals conceded:
 
-I will compute the average goals scored and conceded for each team from all the previous matches
+- I will compute the average goals scored and conceded for each team from all the previous matches
 
-and the average goals scored and conceded for each team from the the last n previous matches (that it can be 1 or 2 and so on..)
+- and the average goals scored and conceded for each team from the the last n previous matches (that it can be 1 or 2 and so on..)
 
-The ideal goal would be to find differences between the performance of teams between the last n previous games and total games useful to classify the target
+I would like to find useful differences between the performance of teams in the last n previous games and the performance in the total games, to classify the target
 
 [Go to Conclusion](#Conclusion)
+
 ## Library used
 ```
 import pandas as pd
@@ -43,18 +44,19 @@ from sklearn.model_selection import RandomizedSearchCV
 
 ## Loading Dataset
 
-> Firstly, i scraped  information about the matches from flashscore website but since that  requires a lot of time ,i performed furthermore reasearch and i founded a website that provides a lots of detailed info,
-so i preferred download a ready dataset
+Firstly, i scraped  information about the matches from flashscore website but since that  requires a lot of time ,i performed furthermore reasearch and i founded a website that provides a lots of detailed info,so i preferred to download a ready dataset from that website
 
 https://www.football-data.co.uk/
+info dataset: https://www.football-data.co.uk/notes.txt
 
 ```
 data.shape
 (380,105)
 ```
+
 ## EDA and Feature Engineering
 
-In this part of the analysis i will execute the following steps:
+In this part of the project i will execute the following steps:
 
 >First of all i will create the target variable:
 >
@@ -62,7 +64,7 @@ In this part of the analysis i will execute the following steps:
 >
 >0 -> Under 2.5
 
->After i will compute the accuracy according to the odds of the bet365 website in order to have a metric to compare
+>After  i will compute the accuracy and precison scores according to the odds of the bet365 website in order to have  metrics to compare
 
 >At this point i will perform feature engineering,i should compute the average stats of the last 5(or another number) matches for each team,and the the average stats of the total previous matches for each team
 
@@ -104,6 +106,8 @@ Accuracy:  0.5789
 ```
 ## *Feature Engineering*
 
+I computed the new features with a simple cicle for scrolling the dataframe each time with a window of the last n matches and with a window of the total matches played
+
 ```
 info_dict={
 'navgGoalHome':navgGoalHome,                 #Feature that describes the average goal scored by home team in the last n matches
@@ -126,22 +130,24 @@ Then I added those feature to a new dataframe adding also *Time* feature
 I founded only 1 Nan value in *B365>2.5* feature  for this reason i decided to delete the observations instead of imputing the value
 
 ## *Distributions of the features*
-To analyze the features created before i will look at the empirical distributions using as kernel a gaussian distribution
+To analyze the features created before i will look at the empirical distributions  using as kernel a gaussian distribution
 Below there are two graphs as example:
 
 ![](/images/newplot.png)
 ![](/images/newplot(1).png)
 
 The graphs do not reveal useful information ,I also computed correlation matrix to try to understand better data
+
 ![](/images/corr.png)
 
-From the Correlation Matrix we can observe some info like:
+From the Correlation Matrix we can observe some information like:
 
 avgGoalHome and navgGoalHome have a positive correlation index
 avgGoalConcededHome and navgGoalHome have a negative correlation index and so on...
 Those information are obvious because navg and avg are generated from the same variables,so also these information are not useful,
 
 ## Training and Tuning Models 
+
 At this point we can try to fit some model ,but from the analysis done before i don't guess that the model will able to return a good output or at least i don't guess that i will be able to do better than the random choice
 
 Models that  i am going to use :
@@ -157,10 +163,12 @@ Models that  i am going to use :
  - SVC
 
  - XGBoost
- - 
+ 
+ -Soft Voting Classifier
+ 
  I will use K-fold Cross Validation to test the accuracy of the model
  
-After getting the baselines, let's see if we can improve the most accuracy baseline model,i tuned only one model due to time issues but surely will be useful to see how metrics improve tuning different models
+After getting the baselines, i will see if i can improve the most accuracy baseline model,i tuned only one model due to time issues but surely will be useful to see how metrics improve tuning different models
 
 |Model|Baseline|||Tuned|||
 |-----|--------|------------------------|------------------------|--------|-----------------------|------------------------|
@@ -174,6 +182,7 @@ After getting the baselines, let's see if we can improve the most accuracy basel
 |Soft Voting| 56.88%| 65.90%|53.84%|
 
 ```
+#Code for Tuning Random Forest
 rf = RandomForestClassifier(random_state = 1)
 param_grid =  {'n_estimators': [50,100,150,200],
                'criterion':['gini','entropy'],
@@ -195,6 +204,7 @@ Precision score over2.5:  0.6818181818181818
 Precision score under2.5:  0.5538461538461539
 Accuracy:  60.550458715596335
 '''
+#Result of the tuned model
 ```
 ![](/images/importance.png)
 
@@ -208,14 +218,14 @@ Choosing at random I would had an empirical probability of guessing the event Ov
 |Random Forest| 60.55%| 66.66%|55.73%|
 |Tuned Randome Forest|60.55%|68.18%|55.38%|
 
-Using the Tuned Random Forest when the classifier predict that the event will end with a number of goal greater than 2 the empirical probability of guessing the event is of 68.18%
+Using the Tuned Random Forest  the empirical probability that the event  will end with a number of goal greater than 2 is of 68.18%
 
 Instead if  I had used the odds of the bookmaker with more or less the same accuracy i would had an empirical pobability of 60%
 
-We can conclude that the model has  better performance compared to using the other strategy,but i don't use this model to bet on Event Over2.5,since there are some considerations to be made:
+We can conclude that the tuned Random Forest has  better performance compared to using the other strategy,but i would not use this model to bet on Event Over2.5,since there are some considerations to be made:
 
 - we have used to few data to try to predict an output so complex
 
-- Surely leading more deep analysis we could find out variables more useful like : performance players and so on...
+- Surely leading  deeper analysis we could find out variables more useful like : performance players and so on...
 
 - We should also use data from other years to validate the model
