@@ -55,18 +55,12 @@ In this part of the analysis i will execute the following steps:
 
 ## *Target Variables*
 
-```
-dft=data[['FTHG','FTAG','B365>2.5','B365<2.5']]
-target=[]
-predB365=[]
-for i in (range(len(dft))):
-  sum=dft['FTHG'].iloc[i]+dft['FTAG'].iloc[i]
-  if(sum>2):target.append(1)
-  else:target.append(0)
-  if(dft['B365>2.5'].iloc[i]<dft['B365<2.5'].iloc[i]):predB365.append(1)
-  else:predB365.append(0)
+> To create the target variables i just need to look at the final result,more precisily i am going to look at the variables *FTHG* and *FTAG*,i will sum their value and convert it into a binary variable 
 
-```
+> 1 means Over 2.5
+>
+> 0 means Under 2.5
+
 ![](https://github.com/datascientist-hist/Football-Results-classification/blob/main/images/count_targettrain.png)
 
 Looking at the frequencies of the target variable we can state that during the championship related to year 2021/2022 we would have a 56% empirical probability of guessing the Over 2.5 outcome by choosing at random
