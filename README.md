@@ -66,9 +66,11 @@ In this part of the analysis i will execute the following steps:
 ## *Metrics*
 
 **True**
+
 Looking at the frequencies of the target variable we can state that during the championship related to year 2021/2022 we would have a 56% empirical probability of guessing the Over 2.5 outcome by choosing at random
 
 **Prediction by bookmaker**
+
 Instead using the odds offered by bookmaker B365 to choose the event Over 2.5 If we had played according to the odds we would have guessed the 58% of the bets
 
 To be competitive i should do better than those metrics
@@ -85,20 +87,60 @@ Precision score under2.5:  0.5512
 Accuracy:  0.5789
 
 ```
-## *Feature Engineering
+## *Feature Engineering*
 
 ```
 info_dict={
-'navgGoalHome':navgGoalHome,
-'navgGoalConcededHome':navgGoalConcededHome,
-'navgGoalAway':navgGoalAway,
-'navgGoalConcededAway':navgGoalConcededAway,
-'avgGoalHome':avgGoalHome,
-'avgGoalConcededHome':avgGoalConcededHome,
-'avgGoalAway':avgGoalAway,
-'avgGoalConcededAway':avgGoalConcededAway,
-'avgshothome':navgShotHome,
-'navgShotAway':navgShotAway
+'navgGoalHome':navgGoalHome,                 #Feature that describes the average goal scored by home team in the last n matches
+'navgGoalConcededHome':navgGoalConcededHome, #Feature that describes the average goal conceded by home team in the last n matches
+'navgGoalAway':navgGoalAway,                 #Feature that describes the average goal scored by away team in the last n matches
+'navgGoalConcededAway':navgGoalConcededAway, #Feature that describes the average goal scored by away team in the last n matches
+'avgGoalHome':avgGoalHome,                   #Feature that describes the average goal scored by home team in the previous matches
+'avgGoalConcededHome':avgGoalConcededHome,   #Feature that describes the average goal conceded by home team in the previous matche
+'avgGoalAway':avgGoalAway,                   #Feature that describes the average goal scored by away team in the previous matche
+'avgGoalConcededAway':avgGoalConcededAway,   #Feature that describes the average goal conceded by away team in the previous matche
+'avgshothome':navgShotHome,                  #Feature that describes the average shot on target  by home team in the last n matches
+'navgShotAway':navgShotAway                  #Feature that describes the average shot on target  by away team in the last n matches
 }
 
 ```
+Then I added those feature to a new dataframe adding also *Time* feature
+
+## *Verifying Nan values*
+
+I founded only 1 Nan value in *B365>2.5* feature  for this reason i decided to delete the observations instead of imputing the value
+
+## *Distributions of the features*
+To analyze the features created before i will look at the empirical distributions using as kernel a gaussian distribution
+Below there are two graphs as example:
+
+![](/images/newplot.png)
+![](/images/newplot(1).png)
+
+The graphs do not reveal useful information ,I also computed correlation matrix to try to understand better data
+![](/images/corr.png)
+
+From the Correlation Matrix we can observe some info like:
+
+avgGoalHome and navgGoalHome have a positive correlation index
+avgGoalConcededHome and navgGoalHome have a negative correlation index and so on...
+Those information are obvious because navg and avg are generated from the same variables,so also these information are not useful,
+
+## Training Models
+>At this point we can try to fit some model ,but from the analysis done before i don't guess that the model will able to return a good output
+
+>Models that  i am going to use :
+>
+> - GaussianNB
+> 
+> - KNeighborsClassifier
+>
+> - LogisticRegression
+>
+> - RandomForestClassifier
+> 
+> - SVC
+>
+> - XGBoost
+
+> I will use K-fold Cross Validation to test the accuracy of the model
