@@ -1,5 +1,6 @@
 # Football-Results-classification
-##Goal
+
+## Goal
 
 *Championship used Serie A Year 2021/2022*
 
@@ -14,11 +15,11 @@ and the average goals scored and conceded for each team from the the last n prev
 The ideal goal would be to find differences between the performance of teams between the last n previous games and total games useful to classify the target
 
 ## Library used
-'''
+```
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import plotly_express as px
 import plotly.figure_factory as ff
 import seaborn as sns
-'''
+```
