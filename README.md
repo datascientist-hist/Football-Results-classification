@@ -127,20 +127,20 @@ avgGoalConcededHome and navgGoalHome have a negative correlation index and so on
 Those information are obvious because navg and avg are generated from the same variables,so also these information are not useful,
 
 ## Training Models
->At this point we can try to fit some model ,but from the analysis done before i don't guess that the model will able to return a good output
+At this point we can try to fit some model ,but from the analysis done before i don't guess that the model will able to return a good output or at least i don't guess that i will be able to do better than the random choice
 
->Models that  i am going to use :
->
-> - GaussianNB
-> 
-> - KNeighborsClassifier
->
-> - LogisticRegression
->
-> - RandomForestClassifier
-> 
-> - SVC
->
-> - XGBoost
+Models that  i am going to use :
 
-> I will use K-fold Cross Validation to test the accuracy of the model
+ - GaussianNB
+ 
+ - KNeighborsClassifier
+
+ - LogisticRegression
+
+ - RandomForestClassifier
+ 
+ - SVC
+
+ - XGBoost
+ - 
+ I will use K-fold Cross Validation to test the accuracy of the model
