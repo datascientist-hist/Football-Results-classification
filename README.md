@@ -25,3 +25,14 @@ import plotly_express as px
 import plotly.figure_factory as ff
 import seaborn as sns
 ```
+
+## Loading Dataset
+
+> Firstly, i scraped  information about the matches from flashscore website but since that  requires a lot of time ,i performed furthermore reasearch and i founded a website that provides a lots of detailed info,
+so i preferred download a ready dataset
+https://www.football-data.co.uk/
+
+```
+data.shape
+(380,108)
+```
