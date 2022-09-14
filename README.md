@@ -30,9 +30,25 @@ import seaborn as sns
 
 > Firstly, i scraped  information about the matches from flashscore website but since that  requires a lot of time ,i performed furthermore reasearch and i founded a website that provides a lots of detailed info,
 so i preferred download a ready dataset
+
 https://www.football-data.co.uk/
 
 ```
 data.shape
-(380,108)
+(380,105)
 ```
+## EDA and Feature Engineering
+
+In this part of the analysis i will execute the following steps:
+
+>First of all i will create the target variable:
+>
+>1 -> Over 2.5
+>
+>0 -> Under 2.5
+
+>Then i am going to take a look to some variables in order to have a general overview, after i will compute the accuracy according to the odds of the bet365 website in order to have a metric to compare
+
+>At this point i will perform feature engineering,i should compute the average stats of the last 5(or another number) matches for each team,and the the average stats of the total previous matches for each team
+
+>After that i will check if there are Nan values
