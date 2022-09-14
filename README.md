@@ -52,6 +52,7 @@ In this part of the analysis i will execute the following steps:
 >At this point i will perform feature engineering,i should compute the average stats of the last 5(or another number) matches for each team,and the the average stats of the total previous matches for each team
 
 >After that i will check if there are Nan values
+
 ##*Target Variables*
 
 ```
