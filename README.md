@@ -1,5 +1,5 @@
 # Football-Results-classification
-![](/images/se1113l151-serie-a-logo-lega-serie-a-european-leagues.png)
+![](/images/se1113l151-serie-a-logo-lega-serie-a-european-leagues.png |width=100)
 ## Goal
 
 *Championship used Serie A Year 2021/2022*
