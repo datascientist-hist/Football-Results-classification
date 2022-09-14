@@ -16,6 +16,7 @@ and the average goals scored and conceded for each team from the the last n prev
 
 The ideal goal would be to find differences between the performance of teams between the last n previous games and total games useful to classify the target
 
+[Go to Conclusion](#Conclusion)
 ## Library used
 ```
 import pandas as pd
