@@ -53,7 +53,7 @@ In this part of the analysis i will execute the following steps:
 
 >After that i will check if there are Nan values
 
-##*Target Variables*
+## *Target Variables*
 
 ```
 dft=data[['FTHG','FTAG','B365>2.5','B365<2.5']]
