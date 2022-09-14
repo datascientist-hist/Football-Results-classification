@@ -52,3 +52,19 @@ In this part of the analysis i will execute the following steps:
 >At this point i will perform feature engineering,i should compute the average stats of the last 5(or another number) matches for each team,and the the average stats of the total previous matches for each team
 
 >After that i will check if there are Nan values
+##*Target Variables*
+
+```
+dft=data[['FTHG','FTAG','B365>2.5','B365<2.5']]
+target=[]
+predB365=[]
+for i in (range(len(dft))):
+  sum=dft['FTHG'].iloc[i]+dft['FTAG'].iloc[i]
+  if(sum>2):target.append(1)
+  else:target.append(0)
+  if(dft['B365>2.5'].iloc[i]<dft['B365<2.5'].iloc[i]):predB365.append(1)
+  else:predB365.append(0)
+
+```
+
+![](https://github.com/datascientist-hist/Football-Results-classification/blob/main/images/count_targettrain.png)
